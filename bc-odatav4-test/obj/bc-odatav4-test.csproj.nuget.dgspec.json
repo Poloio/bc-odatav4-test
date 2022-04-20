@@ -48,6 +48,30 @@
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
               "version": "[5.0.7, )"
+            },
+            "Microsoft.OData.Client": {
+              "target": "Package",
+              "version": "[7.10.0, )"
+            },
+            "Microsoft.OData.Core": {
+              "target": "Package",
+              "version": "[7.10.0, )"
+            },
+            "Microsoft.OData.Edm": {
+              "target": "Package",
+              "version": "[7.10.0, )"
+            },
+            "Microsoft.Spatial": {
+              "target": "Package",
+              "version": "[7.10.0, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[6.0.3, )"
             }
           },
           "imports": [
