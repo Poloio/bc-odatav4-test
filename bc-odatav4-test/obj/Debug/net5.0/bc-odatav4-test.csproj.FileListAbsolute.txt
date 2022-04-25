@@ -27,7 +27,6 @@ C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\obj\Debug\net5.0\
 C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\obj\Debug\net5.0\bc-odatav4-test.pdb
 C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\appsettings.Development.json
 C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\appsettings.json
-C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\Connected Services\OData Service\ConnectedService.json
 C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\bc-odatav4-test.exe
 C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\bc-odatav4-test.deps.json
 C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\bc-odatav4-test.runtimeconfig.json

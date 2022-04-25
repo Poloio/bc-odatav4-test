@@ -4,9 +4,14 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using BC;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace bc_odatav4_test.Controllers
 {
@@ -14,20 +19,69 @@ namespace bc_odatav4_test.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IHttpClientFactory _httpClientFactory;
+
+
+        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory)
         {
+            _httpClientFactory = httpClientFactory;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            //Base URL for Business Central OData services
-            var baseUrl = "http://vsspc054:7048/BC190/ODataV4/";
-            //Data context
-            var context = new BC.NAV(new Uri(baseUrl));
+            IActionResult result = null;
 
-            IEnumerable<BC.Employees> showList = context.Employees.Execute();
-            return View(showList);
+            var oAuthHttpClient = _httpClientFactory.CreateClient("OAuth");
+            var bcHttpClient = _httpClientFactory.CreateClient("BCentral");
+            var keyRequestBody = new StringContent(
+               "grant_type=client_credentials&client_id=83200fbd-baec-404e-aac5-16611b8c7e9b&client_secret=S8O7Q~slAX7S4FwodwlF4ZgoHTqfDZCfac73C&scope=openid https://api.businesscentral.dynamics.com/.default offline_access",
+               Encoding.UTF8,
+               "application/x-www-form-urlencoded");
+            using var keyResponse = await oAuthHttpClient.PostAsync("53b34312-3c82-4e55-ad41-dc58497e9bd8/oauth2/v2.0/token", keyRequestBody);
+
+            var error = false;
+            var errorMessage = "";
+            if (keyResponse.IsSuccessStatusCode)
+            {
+                using var contentStream =
+                    await keyResponse.Content.ReadAsStreamAsync();
+                
+                var compKeyResponse = await JsonSerializer.DeserializeAsync
+                    <OAuthToken>(contentStream);
+
+                if (compKeyResponse.token_type != null & compKeyResponse.access_token != null)
+                    bcHttpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", compKeyResponse.token_type + " " + compKeyResponse.access_token);
+
+                using var bcResponse = await bcHttpClient.GetAsync("Company('RRHH')/VSSImputacionesHorasRRHH");
+
+                if (bcResponse.IsSuccessStatusCode)
+                {
+                    using var bcContentStream =
+                    await bcResponse.Content.ReadAsStreamAsync();
+
+                    /* I MISS JAVASCRIPT FOR THIS
+                    var hourInputs = await JsonSerializer.DeserializeAsync
+                        <IEnumerable<Object>>(bcContentStream);
+                    */
+
+                    result = View(/*hourInputs*/);
+                } else
+                {
+                    error = true;
+                    errorMessage = bcResponse.StatusCode + " - " + bcResponse.ReasonPhrase;
+                }
+            } else
+            {
+                error = true;
+            }
+
+            if (error)
+            {
+                result = RedirectToAction("Error");
+            }
+
+            return result;
         }
 
         public IActionResult Privacy()

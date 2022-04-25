@@ -2,11 +2,11 @@
     ViewData["Title"] = "Home Page";
     
 }
-@model IEnumerable<BC.Employees>
+@model IEnumerable<Object>
 
 <div class="text-center">
-    @foreach(var employee in Model)
+    @foreach (var input in Model)
             {
-                <p>employee.Name</p>
+                <p>@input.ToString()</p>
             }
 </div>
