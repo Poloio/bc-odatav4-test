@@ -62,7 +62,7 @@ namespace bc_odatav4_test.Controllers
 
                     /* I MISS JAVASCRIPT FOR THIS
                     var hourInputs = await JsonSerializer.DeserializeAsync
-                        <IEnumerable<Object>>(bcContentStream);
+                        <IEnumerable<Object>>(bcContentStream); doesn't work, but I need OData unchased for this
                     */
 
                     result = View(/*hourInputs*/);
