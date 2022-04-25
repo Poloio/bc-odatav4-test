@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "BMGAwU0EDMJcnj2uZIoqMMXypm5YCDF9Z+GSzqSpROtHnFX8YDmB9ZC7mOdWVsYf40ZFqONUCiEZY3arY6Gzfg==",
+  "dgSpecHash": "o13hOqYcvdELGJagPBcbGLL+90PvA2BZG8ZxSyhkWd4rLHTVGd+l+siw153Zal9YSjNm00nMIHoYr5bqbmpVQA==",
   "success": true,
   "projectFilePath": "C:\\Users\\CARAGON\\Documents\\GIT\\bc-odatav4-test\\bc-odatav4-test\\bc-odatav4-test.csproj",
   "expectedPackageFiles": [
@@ -23,6 +23,7 @@
     "C:\\Users\\CARAGON\\.nuget\\packages\\microsoft.odata.edm\\7.10.0\\microsoft.odata.edm.7.10.0.nupkg.sha512",
     "C:\\Users\\CARAGON\\.nuget\\packages\\microsoft.spatial\\7.10.0\\microsoft.spatial.7.10.0.nupkg.sha512",
     "C:\\Users\\CARAGON\\.nuget\\packages\\microsoft.web.infrastructure\\1.0.0\\microsoft.web.infrastructure.1.0.0.nupkg.sha512",
+    "C:\\Users\\CARAGON\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\CARAGON\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\CARAGON\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\CARAGON\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",

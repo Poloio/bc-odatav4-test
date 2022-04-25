@@ -1,6 +1,8 @@
-﻿using bc_odatav4_test.Models;
+﻿using bc_odatav4_test.Auth;
+using bc_odatav4_test.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,53 +33,26 @@ namespace bc_odatav4_test.Controllers
         {
             IActionResult result = null;
 
-            var oAuthHttpClient = _httpClientFactory.CreateClient("OAuth");
             var bcHttpClient = _httpClientFactory.CreateClient("BCentral");
+            var authManager = new AuthManager();
 
-            // Prepare body for the access key request
-            var keyRequestBody = new StringContent(
-               // body
-               "grant_type=client_credentials&client_id=83200fbd-baec-404e-aac5-16611b8c7e9b&client_secret=S8O7Q~slAX7S4FwodwlF4ZgoHTqfDZCfac73C&scope=openid https://api.businesscentral.dynamics.com/.default offline_access",
-               Encoding.UTF8,
-               // content-type header
-               "application/x-www-form-urlencoded");
+            bool error = false;
+            string errorMessage = null;
 
-            using var keyResponse = await oAuthHttpClient.PostAsync("53b34312-3c82-4e55-ad41-dc58497e9bd8/oauth2/v2.0/token", keyRequestBody);
+            bcHttpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", compKeyResponse.token_type + " " + compKeyResponse.access_token);
 
-            var error = false;
-            var errorMessage = "";
-            if (keyResponse.IsSuccessStatusCode)
+            using var bcResponse = await bcHttpClient.GetAsync("Company('RRHH')/VSSImputacionesHorasRRHH");
+
+            if (bcResponse.IsSuccessStatusCode)
             {
-                using var contentStream =
-                    await keyResponse.Content.ReadAsStreamAsync();
-                
-                var compKeyResponse = await JsonSerializer.DeserializeAsync
-                    <OAuthToken>(contentStream);
+                using var bcContentStream =
+                await bcResponse.Content.ReadAsStreamAsync();
 
-                if (compKeyResponse.token_type != null & compKeyResponse.access_token != null)
-                    bcHttpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", compKeyResponse.token_type + " " + compKeyResponse.access_token);
-
-                using var bcResponse = await bcHttpClient.GetAsync("Company('RRHH')/VSSImputacionesHorasRRHH");
-
-                if (bcResponse.IsSuccessStatusCode)
-                {
-                    using var bcContentStream =
-                    await bcResponse.Content.ReadAsStreamAsync();
-
-                    /* I MISS JAVASCRIPT FOR THIS
-                    var hourInputs = await JsonSerializer.DeserializeAsync
-                        <IEnumerable<Object>>(bcContentStream); doesn't work, but I need OData unchased anyways
-                    */
-
-                    result = View(bcResponse.Content.ToString());
-                } else
-                {
-                    error = true;
-                    errorMessage = bcResponse.StatusCode + " - " + bcResponse.ReasonPhrase;
-                }
+                dynamic hourInputs = await JsonConvert.(bcResponse);
             } else
             {
                 error = true;
+                errorMessage = bcResponse.StatusCode + " - " + bcResponse.ReasonPhrase;
             }
 
             if (error)
