@@ -2,11 +2,8 @@
     ViewData["Title"] = "Home Page";
     
 }
-@model IEnumerable<Object>
+@model string
 
 <div class="text-center">
-    @foreach (var input in Model)
-            {
-                <p>@input.ToString()</p>
-            }
+    <p>@Model</p>
 </div>

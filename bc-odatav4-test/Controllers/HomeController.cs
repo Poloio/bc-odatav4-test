@@ -21,7 +21,6 @@ namespace bc_odatav4_test.Controllers
 
         private readonly IHttpClientFactory _httpClientFactory;
 
-
         public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
@@ -34,10 +33,15 @@ namespace bc_odatav4_test.Controllers
 
             var oAuthHttpClient = _httpClientFactory.CreateClient("OAuth");
             var bcHttpClient = _httpClientFactory.CreateClient("BCentral");
+
+            // Prepare body for the access key request
             var keyRequestBody = new StringContent(
+               // body
                "grant_type=client_credentials&client_id=83200fbd-baec-404e-aac5-16611b8c7e9b&client_secret=S8O7Q~slAX7S4FwodwlF4ZgoHTqfDZCfac73C&scope=openid https://api.businesscentral.dynamics.com/.default offline_access",
                Encoding.UTF8,
+               // content-type header
                "application/x-www-form-urlencoded");
+
             using var keyResponse = await oAuthHttpClient.PostAsync("53b34312-3c82-4e55-ad41-dc58497e9bd8/oauth2/v2.0/token", keyRequestBody);
 
             var error = false;
@@ -62,10 +66,10 @@ namespace bc_odatav4_test.Controllers
 
                     /* I MISS JAVASCRIPT FOR THIS
                     var hourInputs = await JsonSerializer.DeserializeAsync
-                        <IEnumerable<Object>>(bcContentStream); doesn't work, but I need OData unchased for this
+                        <IEnumerable<Object>>(bcContentStream); doesn't work, but I need OData unchased anyways
                     */
 
-                    result = View(/*hourInputs*/);
+                    result = View(bcResponse.Content.ToString());
                 } else
                 {
                     error = true;
