@@ -21,13 +21,16 @@ namespace bc_odatav4_test.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IMemoryCache _memoryCache;
+        private readonly IAuthManager _authManager;
 
-        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory, IMemoryCache memoryCache)
+        public HomeController(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory, IMemoryCache memoryCache, IAuthManager authManager)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
             _memoryCache = memoryCache;
+            _authManager = authManager;
         }
+
         /// <summary>
         /// Shows all sales orders from the server.
         /// </summary>
@@ -55,7 +58,7 @@ namespace bc_odatav4_test.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Reads an HTTPResponseMessage to parse the "value" value. Love redundancy!
         /// </summary>
         /// <param name="responseBody"></param>
         /// <returns></returns>
@@ -66,6 +69,11 @@ namespace bc_odatav4_test.Controllers
             return jsonValues.ToObject<IEnumerable<SalesOrderHeader>>();
         }
 
+        /// <summary>
+        /// Manages a request to the given endpoint using NTML authentication.
+        /// </summary>
+        /// <param name="requestUri"></param>
+        /// <returns></returns>
         private async Task<HttpResponseMessage> MakeRequestNTML(Uri requestUri)
         {
             var handler = new HttpClientHandler() { Credentials = CredentialCache.DefaultCredentials, PreAuthenticate = true };

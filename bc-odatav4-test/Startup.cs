@@ -1,3 +1,4 @@
+using bc_odatav4_test.Auth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,6 +40,7 @@ namespace bc_odatav4_test
             {
                 httpClient.BaseAddress = new Uri("http://vsspc054:7048/BC190/ODataV4/");
             });
+            services.AddScoped<IAuthManager, AuthManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

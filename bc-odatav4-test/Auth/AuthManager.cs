@@ -9,7 +9,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace bc_odatav4_test.Auth
 {
-    public class AuthManager
+    public class AuthManager : IAuthManager
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IMemoryCache _memoryCache;
@@ -18,7 +18,7 @@ namespace bc_odatav4_test.Auth
             _httpClientFactory = httpClientFactory;
             _memoryCache = memoryCache;
         }
-        public async Task<string> GetAccessKey()
+        public async Task<string> GetAccessKeyAsync()
         {
             var returnString = "";
 
