@@ -31,9 +31,13 @@ namespace bc_odatav4_test
             {
                 httpClient.BaseAddress = new Uri("https://login.microsoftonline.com/");
             });
-            services.AddHttpClient("BCentral", httpClient =>
+            services.AddHttpClient("BCentralSAS", httpClient =>
             {
                 httpClient.BaseAddress = new Uri("https://api.businesscentral.dynamics.com/v2.0/53b34312-3c82-4e55-ad41-dc58497e9bd8/MIGRACION/ODataV4/");
+            });
+            services.AddHttpClient("BCentralLOCAL", httpClient =>
+            {
+                httpClient.BaseAddress = new Uri("http://vsspc054:7048/BC190/ODataV4/");
             });
         }
 
