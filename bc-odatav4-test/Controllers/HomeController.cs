@@ -35,10 +35,22 @@ namespace bc_odatav4_test.Controllers
         /// Shows all sales orders from the server.
         /// </summary>
         /// <returns>the view in Views\Home\Index.cshtml</returns>
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string state)
         {
+            string filter;
+            switch (state)
+            {
+                case "open":
+                    filter = "&$filter=Status eq 'Open'";
+                    break;
+                case "released":
+                    filter = "&$filter=Status eq 'Released'";
+                    break;
+                default: filter = ""; break;
+            }
+
             IActionResult result = null;
-            var requestUri = new Uri("http://vsspc054:7048/BC190/ODataV4/Company('CRONUS%20Espa%C3%B1a%20S.A.')/SalesOrder");
+            var requestUri = new Uri($"http://vsspc054:7048/BC190/ODataV4/Company('CRONUS%20Espa%C3%B1a%20S.A.')/SalesOrder?$select=No,Sell_to_Customer_No,Sell_to_Customer_Name,Status,Order_Date{filter}");
             var response = await MakeRequestNTML(requestUri);
 
             if (response.IsSuccessStatusCode)
@@ -58,10 +70,49 @@ namespace bc_odatav4_test.Controllers
         }
 
         /// <summary>
+        /// Shows the lines from the sales order with document number passed by parameter.
+        /// </summary>
+        /// <param name="no"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> Header(int no) 
+        {
+            IActionResult result = null;
+            var requestUri = new Uri($"http://vsspc054:7048/BC190/ODataV4/Company('CRONUS%20Espa%C3%B1a%20S.A.')/workflowSalesDocumentLines?$filter=documentType%20eq%20%27Order%27%20and%20documentNumber%20eq%20%27{no}%27&$select=documentNumber,lineNumber,number,quantity,unitPrice,lineAmount");
+            var response = await MakeRequestNTML(requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseBody = await response.Content.ReadAsStringAsync();
+                var salesLines = ParseSalesLines(responseBody);
+
+                var tableConverter = new DataTableConverter();
+                var salesTable = tableConverter.ToDataTable<SalesOrderLine>(salesLines);
+                result = View(salesTable);
+            }
+            else
+            {
+                result = RedirectToAction("Error");
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Reads an HTTPResponseMessage to parse the "value" value. Love redundancy!
         /// </summary>
         /// <param name="responseBody"></param>
-        /// <returns></returns>
+        /// <returns>a list with all json items in "value" array.</returns>
+        private IEnumerable<SalesOrderLine> ParseSalesLines(string responseBody)
+        {
+            var jsonRoot = JObject.Parse(responseBody);
+            var jsonValues = jsonRoot.Value<JArray>("value");
+            return jsonValues.ToObject<IEnumerable<SalesOrderLine>>();
+        }
+
+        /// <summary>
+        /// Reads an HTTPResponseMessage to parse the "value" value. Love redundancy!
+        /// </summary>
+        /// <param name="responseBody"></param>
+        /// <returns>a list with all json items in "value" array.</returns>
         private IEnumerable<SalesOrderHeader> ParseSalesOrders(string responseBody)
         {
             var jsonRoot = JObject.Parse(responseBody);

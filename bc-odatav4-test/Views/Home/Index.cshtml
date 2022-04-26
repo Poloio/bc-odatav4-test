@@ -6,6 +6,9 @@
 @model DataTable
 
 <div class="text-center">
+    <a asp-action="Index" asp-route-state="open"><input class="btn btn-primary" type="button" value="Mostrar Abiertos" /></a>
+    <a asp-action="Index" asp-route-state="released"><input class="btn btn-primary" type="button" value="Mostrar Cerrados" /></a>
+    <a asp-action="Index" asp-route-state=""><input type="button" class="btn btn-primary" value="Mostrar Todos" /></a>
     <table class="table table-light table-striped">
         <thead>
             <tr>
@@ -21,7 +24,16 @@
                 <tr>
                     @foreach (DataColumn dataColumn in Model.Columns)
                     {
-                        <td>@dataRow[dataColumn.ColumnName]</td>
+                        if (dataColumn.ColumnName.Equals("No"))
+                        {
+                            <td><a asp-controller="Home" asp-action="Header" asp-route-no="@dataRow[dataColumn.ColumnName]">@dataRow[dataColumn.ColumnName]</a></td>
+                        }
+                        else
+                        {
+                            <td>@dataRow[dataColumn.ColumnName]</td>
+                        }
+
+
                     }
                 </tr>
             }
