@@ -18,7 +18,6 @@ namespace bc_odatav4_test.Auth
             _httpClientFactory = httpClientFactory;
             _memoryCache = memoryCache;
         }
-
         public async Task<string> GetAccessKey()
         {
             var returnString = "";

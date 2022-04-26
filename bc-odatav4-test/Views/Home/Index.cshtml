@@ -1,9 +1,30 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    
+
 }
-@model string
+@using System.Data
+@model DataTable
 
 <div class="text-center">
-    <p>@Model</p>
+    <table class="table table-light table-striped">
+        <thead>
+            <tr>
+                @foreach (DataColumn column in Model.Columns)
+                {
+                    <th scope="col">@column.ColumnName.ToUpper().Replace("_", " ")</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow dataRow in Model.Rows)
+            {
+                <tr>
+                    @foreach (DataColumn dataColumn in Model.Columns)
+                    {
+                        <td>@dataRow[dataColumn.ColumnName]</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

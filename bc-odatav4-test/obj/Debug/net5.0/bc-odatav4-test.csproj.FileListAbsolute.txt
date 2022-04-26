@@ -360,3 +360,11 @@ C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\
 C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\obj\Debug\net5.0\bc-odatav4-test.Views.pdb
 C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\obj\Debug\net5.0\bc-odatav4-test.csproj.CopyComplete
 C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\obj\Debug\net5.0\bc-odatav4-test.genruntimeconfig.cache
+C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\System.Web.Mvc.dll
+C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\System.Web.Razor.dll
+C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\System.Web.Helpers.dll
+C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\System.Web.WebPages.Deployment.dll
+C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\System.Web.WebPages.Razor.dll
+C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\System.Web.WebPages.dll
+C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
+C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\Newtonsoft.Json.dll
