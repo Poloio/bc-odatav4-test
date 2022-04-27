@@ -369,3 +369,4 @@ C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\
 C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
 C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\obj\Debug\net5.0\Razor\Views\Home\Header.cshtml.g.cs
+C:\Users\CARAGON\Documents\GIT\bc-odatav4-test\bc-odatav4-test\obj\Debug\net5.0\Razor\Views\Home\SalesLines.cshtml.g.cs
