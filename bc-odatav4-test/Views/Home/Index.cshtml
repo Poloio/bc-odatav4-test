@@ -24,7 +24,7 @@
                 <tr>
                     @foreach (DataColumn dataColumn in Model.Columns)
                     {
-                        if (dataColumn.ColumnName.Equals("No"))
+                        if (dataColumn.ColumnName.Equals("no"))
                         {
                             <td><a asp-controller="Home" asp-action="Header" asp-route-no="@dataRow[dataColumn.ColumnName]">@dataRow[dataColumn.ColumnName]</a></td>
                         }

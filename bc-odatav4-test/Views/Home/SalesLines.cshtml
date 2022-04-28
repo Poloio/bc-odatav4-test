@@ -6,9 +6,12 @@
 @model DataTable
 
 <div class="text-center">
-    <form asp-action="SalesLines" asp-route-numFilter="0">
-        <input name="numFilter" type="number" maxlength="6" placeholder="105001" />
-        <input type="submit" class="btn btn-primary" value="Filtrar por número de documento"/>
+    <form asp-action="SalesLines" asp-route-numFilter="0" asp-route-onlyNegatives="">
+        <label for="numFilter">Document No.</label>
+        <input id="numFilter" name="numFilter" type="text" maxlength="10" placeholder="105001" />
+        <label for="onlyNegatives">Only negative stock.</label>
+        <input onchange="onCheckboxChange()" type="checkbox" id="onlyNegatives" name="onlyNegatives" />
+        <input type="submit" class="btn btn-primary" value="Filter" />
     </form>
     <table class="table table-light table-striped">
         <thead>
@@ -32,3 +35,10 @@
         </tbody>
     </table>
 </div>
+<script>
+    function onCheckboxChange() {
+        var numInput = document.getElementById('numFilter');
+        var checkBox = document.getElementById('onlyNegatives');
+        numInput.disabled = checkBox.checked;
+    }
+</script>

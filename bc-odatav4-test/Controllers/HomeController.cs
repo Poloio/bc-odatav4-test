@@ -53,7 +53,7 @@ namespace bc_odatav4_test.Controllers
             }
 
             IActionResult result = null;
-            var requestUri = new Uri($"http://vsspc054:7048/BC190/ODataV4/Company('CRONUS%20Espa%C3%B1a%20S.A.')/SalesOrder?$select=No,Sell_to_Customer_No,Sell_to_Customer_Name,Status,Order_Date{filter}");
+            var requestUri = new Uri($"http://vsspc054:7048/BC190/ODataV4/Company('CRONUS%20Espa%C3%B1a%20S.A.')/SalesHeaderLineQty{filter}");
             var response = await MakeRequestNTML(requestUri);
 
             if (response.IsSuccessStatusCode)
@@ -105,7 +105,7 @@ namespace bc_odatav4_test.Controllers
         /// </summary>
         /// <param name="no"></param>
         /// <returns></returns>
-        public async Task<IActionResult> SalesLines(int numFilter)
+        public async Task<IActionResult> SalesLines(int numFilter, string onlyNegatives)
         {
             Uri requestUri;
             if (numFilter <= 0)
@@ -113,6 +113,11 @@ namespace bc_odatav4_test.Controllers
             else
                 requestUri = new Uri($"http://vsspc054:7048/BC190/ODataV4/Company('CRONUS%20Espa%C3%B1a%20S.A.')/SalesLineWithStock?$filter=documentNo eq '{numFilter}'");
 
+            if (onlyNegatives != null)
+            {
+                if (onlyNegatives.Equals("on"))
+                    requestUri = new Uri($"http://vsspc054:7048/BC190/ODataV4/Company('CRONUS%20Espa%C3%B1a%20S.A.')/SalesLineWithStock?$filter=unitsInStock lt 0");
+            }
             IActionResult result = null;
             var response = await MakeRequestNTML(requestUri);
 

@@ -8,10 +8,11 @@ namespace bc_odatav4_test.Models
 {
     public class SalesOrderHeader
     {
-        public string No { get; set; }
-        public string Sell_to_Customer_No { get; set; }
-        public string Sell_to_Customer_Name { get; set; }
-        public string Order_Date { get; set; }
-        public string Status { get; set; }
+        public string no { get; set; }
+        public string sellToCustomerNo { get; set; }
+        public string sellToCustomerName { get; set; }
+        public string orderDate { get; set; }
+        public string status { get; set; }
+        public int totalItems { get; set; }
     }
 }
